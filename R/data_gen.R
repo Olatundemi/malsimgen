@@ -19,6 +19,10 @@
 #' @param plot_instance If TRUE, plots the simulated prevalence.
 #'
 #' @export
+
+source("Z:/Olatunde/MalariaMod/malsimgen/R/genrandwalk.R")
+source("Z:/Olatunde/MalariaMod/mamasante/R/equilibrium-init-create-stripped.R")
+source("Z:/Olatunde/MalariaMod/mamasante/R/model_parameters.R")
 data_gen <- function(volatility,
                      init_EIR=100,
                      min_EIR = 0.01,
@@ -31,7 +35,9 @@ data_gen <- function(volatility,
                      prop_treated = 0.4,
                      init_age = c(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 3.5, 5, 7.5, 10, 15, 20, 30, 40, 50, 60, 70, 80),
                      plot_instance = TRUE){
-  model_file <- system.file("odin", "odin_model_stripped_matched.R", package = "mamasante")
+  #model_file <- system.file("odin", "odin_model_stripped_matched.R", package = "mamasante")
+
+  model_file <- "Z:/Olatunde/MalariaMod/mamasante/inst/odin/odin_model_stripped_matched.R"
   cat('EIR_vol = ',volatility,' init_EIR = ',init_EIR,'\n')
 
   rA_preg <- 0.00512821
@@ -47,16 +53,14 @@ data_gen <- function(volatility,
   EIR_vals=genrandwalk(length(EIR_times)-1,volatility,init_EIR,min_EIR,max_EIR)
 
   ##set up the simulation for the simualted data
-
-  mpl <- mamasante::model_param_list_create(init_EIR = init_EIR,
+  mpl <- model_param_list_create(init_EIR = init_EIR,
                                  init_ft = prop_treated,
                                  EIR_times=EIR_times,
                                  EIR_vals=EIR_vals,
                                  comparison='u5',
                                  lag_rates=10
   )
-
-  pars <- mamasante::equilibrium_init_create_stripped(age_vector = init_age,
+  pars <- equilibrium_init_create_stripped(age_vector = init_age,
                                            init_EIR = init_EIR,
                                            ft = prop_treated,
                                            model_param_list = mpl,
@@ -88,12 +92,17 @@ data_gen <- function(volatility,
   tested<-round(rnorm(length(out$prev_all),sample_size,sample_sd))
   positive<-rbinom(length(out$prev_all),tested,out$prev_all)
   month <- seq.Date(from = as.Date('2015-01-01'),by = 'month',length.out = length(tt))
+
   data_raw<-data.frame(t=out$t+30,
                        tested=tested,
                        positive=positive,
                        prev_true=out$prev_all,
                        EIR_true=EIR_vals,
                        vol_true=volatility,
-                       inc_true=out$incunder5)
+                       #inc_true=out$incunder5,
+                       prev_2to10=out$prev_out_2to10,
+                       inc_2to10= out$inc2_10,
+                       incall=out$inc)
   return(data_raw)
 }
+

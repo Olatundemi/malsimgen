@@ -11,8 +11,10 @@
 #' @param out_step The number of days between each simulated data point.
 #' @param duration The length of time in days the model will run.
 #' @param plot_instance If TRUE, plots the simulated prevalence.
-#'
 #' @export
+#'
+#source("Z:/Olatunde/MalariaMod/malsimgen/R/data_gen.R")
+hipercow_environment_create(sources = "data_gen.R")
 generate_sim_compendium<-function(n_sims,volatility,init_EIR,duration,out_step,plot_instance=FALSE){
   sims_compendium<-data.frame(
     run=numeric(),
@@ -20,9 +22,13 @@ generate_sim_compendium<-function(n_sims,volatility,init_EIR,duration,out_step,p
     prev_true=numeric(),
     EIR_true=numeric(),
     vol_true=numeric(),
-    inc_true=numeric(),
+    #inc_true=numeric(),
     tested=numeric(),
-    positive=numeric()
+    positive=numeric(),
+    prev_2to10=numeric(),
+    inc_2to10=numeric(),
+    incall=numeric()
+
   )
   for(i in 1:n_sims){
     sims_compendium<-dplyr::add_row(sims_compendium,
