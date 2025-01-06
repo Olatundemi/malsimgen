@@ -13,6 +13,7 @@
 #' @param plot_instance If TRUE, plots the simulated prevalence.
 #' @export
 #'
+
 source("Z:/Olatunde/MalariaMod/malsimgen/R/data_gen.R")
 
 generate_sim_compendium<-function(n_sims,volatility,init_EIR,duration,out_step,plot_instance=FALSE){
