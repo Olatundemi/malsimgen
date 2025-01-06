@@ -1,32 +1,14 @@
 
-# malsimgen
+# MalsimgenMod
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package helps to generate simulated runs of the deterministic version of malariasimulation (https://github.com/mrc-ide/deterministic-malaria-model).
+This modified version of malsimgem helps to generate simulated runs with the inclusion of prevelance data in ages 2-10
 
-## Installation
-
-You can install the development version of malsimgen (and mamasante, which has required functions and houses the model) from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("jt-hicks/malsimgen")
-devtools::install_github("jt-hicks/mamasante")
-
-```
+The modifications made were primarily in odin model, equilibrium function and parameter list (all in mamasante) but sourced to simulation genaration package, 
 
 ## Example
 
-Basic usage:
-
-``` r
-library(malsimgen)
-sim_data <- malsimgen::data_gen(volatility=1,
-                                init_EIR=100,
-                                min_EIR=0.01,
-                                max_EIR=500,
-                                plot_instance=TRUE)
-```
+generate_simulation_script.R was added to detail simulation parameters (and arguments)
 
