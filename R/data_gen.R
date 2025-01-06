@@ -20,9 +20,9 @@
 #'
 #' @export
 
-source("Z:/Olatunde/MalariaMod/malsimgen/R/genrandwalk.R")
-source("Z:/Olatunde/MalariaMod/mamasante/R/equilibrium-init-create-stripped.R")
-source("Z:/Olatunde/MalariaMod/mamasante/R/model_parameters.R")
+source("R/genrandwalk.R")
+source("R/equilibrium-init-create-stripped.R")
+source("R/model_parameters.R")
 data_gen <- function(volatility,
                      init_EIR=100,
                      min_EIR = 0.01,
@@ -37,7 +37,7 @@ data_gen <- function(volatility,
                      plot_instance = TRUE){
   #model_file <- system.file("odin", "odin_model_stripped_matched.R", package = "mamasante")
 
-  model_file <- "Z:/Olatunde/MalariaMod/mamasante/inst/odin/odin_model_stripped_matched.R"
+  model_file <- "inst/odin/odin_model_stripped_matched.R"
   cat('EIR_vol = ',volatility,' init_EIR = ',init_EIR,'\n')
 
   rA_preg <- 0.00512821
